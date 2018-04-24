@@ -11,6 +11,11 @@
     <style>
         html,
         body {
+            background-image:url('ImageResources/mainPage/background.png');
+            background-size:100vw 100vh;
+            /*background-size:100%;*/
+            background-repeat: no-repeat;
+
             width: 100%;
             height: 100%;
             margin: 0;
@@ -18,15 +23,149 @@
             overflow: hidden;
         }
 
+        .frameImage {
+            background-image:url('ImageResources/mainPage/frames.png');
+            /*background-size: 100% auto;*/
+            background-repeat: no-repeat;
+            width:100%;
+            height: 91%;
+            background-size: 100vw 91vh;
+            position: absolute;
+            left:0vh;
+            top: 9vh;
+            margin: 0px;
+            z-index: 10;
+            pointer-events: none;
+
+        }
+        * {
+            box-sizing: border-box;
+        }
+        .menuButton  {
+            /*display: inline-block;*/
+            background-image: url(ImageResources/mainPage/buttonUnselect.png);
+            background-size:  100% ;
+            background-position: top;
+            background-repeat: no-repeat;
+            /*border: 1px solid red;*/
+            margin: 0.75vh 0px 0px 0px;
+            padding: 2.8vh 0vh 1.55vh 0vh ;
+            width: 11.4%;
+            float: left;
+            text-align: center;
+            color: white;
+            border:0px;
+            cursor: pointer;
+            background-color: transparent;
+            font-size: 1.25vw;
+            outline:none;
+        }
+        .menuButtonActive{
+            background-image: url(ImageResources/mainPage/buttonSelected.png);
+            background-size:  100% ;
+            background-position: top;
+            background-repeat: no-repeat;
+            /*border: 1px solid red;*/
+            margin: 0.75vh 0px 0px 0px;
+            padding: 2.8vh 0vh 1.55vh 0vh ;
+            width: 11.4%;
+            float: left;
+            text-align: center;
+            color: white;
+            border:0px;
+            cursor: pointer;
+            background-color: transparent;
+            font-size: 1.25vw;
+            outline:none;
+        }
+        a.active {
+            background-image: url(ImageResources/mainPage/ipbuttonselect.png);
+        }
+        a:hover{
+            background-image: url(ImageResources/mainPage/ipbuttonselect.png);
+            color: black;
+        }
+        .titleButton {
+            background-image: url(ImageResources/mainPage/title.png);
+            background-size:  100% 100%;
+            background-position: right bottom, left top;
+            background-repeat: no-repeat;
+            /*border: 1px solid red;*/
+            padding: 5.2vh 0vh 6vh 0vh ;
+            width: 24.7%;
+            float: left;
+            text-align: center;
+            color: white;
+            font-size: 1.5vw;
+            z-index: 1000;
+            position:relative ;
+        }
+        .blank-border {
+            /*border: 1px solid red;*/
+            padding: 1% 0.3%;
+            width:1.5%;
+            float: left;
+        }
+        .blank {
+            /*border: 1px solid red;*/
+            padding: 1% 0%;
+            width:0.65%;
+            float: left;
+        }
+        .row:after {
+            content: "";
+            clear: both;
+            display: block;
+
+        }
+        .menuRow {
+            z-index:999;
+            height:9%;
+        }
+        .frameRow {
+            /*z-index:0;*/
+            height: 91%;
+        }
+
         #map {
-            width: 100%;
-            height: 100%;
+            width:100%;
+            height: 91%;
+            position: absolute;
+            left:0vh;
+            top: 9vh;
+            opacity: 0.7;
+            z-index: 1;
         }
     </style>
 </head>
 
 <body>
-    <div id="map"></div>
+
+    <div class="menuRow">
+    <!--<div class="row">-->
+        <div class="blank-border"></div>
+        <a class="menuButtonActive" href="#" >IP定位</a>
+        <div class="blank"></div>
+        <a class="menuButton" href="#">地标数据</a>
+        <div class="blank"></div>
+        <a class="menuButton" >拓扑探测</a>
+        <div class="blank"></div>
+        <div class="titleButton" >网络地理综合态势显示</div>
+        <div class="blank"></div>
+        <a class="menuButton" >微信定位</a>
+        <div class="blank"></div>
+        <a class="menuButton" >微博定位</a>
+        <div class="blank"></div>
+        <a class="menuButton" >探测源</a>
+        <div class="blank-border"></div>
+    <!--</div>-->
+</div>
+    <div class="frameRow" name="page">
+        <div class="frameImage"></div>
+        <div id="map"></div>
+    </div>
+
+
     <script type="text/javascript">
     
         var base_layer = new OpenLayers.Layer.OSM("OpenStreetMap", null, {
@@ -128,4 +267,4 @@
         }
     </script>
 </body>
-</html
+</html>
