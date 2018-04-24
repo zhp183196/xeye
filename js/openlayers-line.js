@@ -83,13 +83,13 @@ var MoveLine = function MoveLine(map, userOptions) {
         //移动点半径
         moveLineWidth:3,
         //移动点颜色
-        moveLineColor:'#fff',
+        moveLineColor:'#F9815C',
         //移动点阴影颜色
-        moveLineShadowColor: '#fff',
+        moveLineShadowColor: '#F9815C',
         //移动点阴影大小
         moveLineShadowBlur: 5,
         //移动步长
-        moveSteps:100.0,
+        moveSteps:500.0,
     };
 
     //参数合并

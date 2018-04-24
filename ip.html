@@ -28,6 +28,41 @@
 <body>
     <div id="map"></div>
     <script type="text/javascript">
+    
+        var base_layer = new OpenLayers.Layer.OSM("OpenStreetMap", null, {
+                        transitionEffect: "resize",
+                        attribution: "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+                        eventListeners: {
+                            tileloaded: function(evt) {
+                                //反色
+                                var ctx = evt.tile.getCanvasContext();
+                                if (ctx) {
+                                    var imgd = ctx.getImageData(0, 0, evt.tile.size.w, evt.tile.size.h);
+                                    
+                                    
+                                    var pix = imgd.data;
+                                    var r,g,b;
+                                    for (var i = 0, n = pix.length; i < n; i += 4) {
+                                        r = pix[i];
+                                        g = pix[i+1];
+                                        b = pix[i+2];
+                                        
+                                        var v = 0.299 * r+ 0.587 * g + 0.114 *b;
+                                        
+                                        pix[i] = 255 - v;
+                                        pix[i+1] = 255 - v;
+                                        pix[i+2] = 255 - v;
+                                        
+                                    }
+                                    ctx.putImageData(imgd, 0, 0);
+                                    
+                                    
+                                    evt.tile.imgDiv.removeAttribute("crossorigin");
+                                    evt.tile.imgDiv.src = ctx.canvas.toDataURL();
+                                }
+                            }
+                        }
+                    });
         function init() {
             var map = new OpenLayers.Map({
                 div: "map",
@@ -42,15 +77,10 @@
                     }),
                     new OpenLayers.Control.Zoom()
                 ],
-                layers: [
-                    new OpenLayers.Layer.OSM("OpenStreetMap", null, {
-                        transitionEffect: "resize",
-                        attribution: "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
-                    })
-                ]
+                layers: [base_layer]
             });
-
-            map.setCenter(new OpenLayers.LonLat(113.270793, 23.135308).transform(
+            
+            map.setCenter(new OpenLayers.LonLat(113.270793, 29.135308).transform(
                 new OpenLayers.Projection("EPSG:4326"),
                 map.getProjectionObject()
             ), 5);
@@ -75,17 +105,17 @@
                     {from:['109.518646', '18.258217'],to:['113.603757', '24.816174'],path:2},
                 ],
                 //线条宽度
-                lineWidth: 1,
+                lineWidth: 2,
                 //线条颜色
                 strokeStyle: '#F8AB60',
                 //移动点半径
-                moveLineWidth:3,
+                moveLineWidth:4,
                 //移动点颜色
-                moveLineColor:'#fff',
+                moveLineColor:'#F8AB60',
                 //移动点阴影颜色
-                moveLineShadowColor: '#fff',
+                moveLineShadowColor: '#FFDDEE',
                 //移动点阴影大小
-                moveLineShadowBlur: 5,
+                moveLineShadowBlur: 3,
             };
             
             var moveline = new MoveLine(map, opt);
